@@ -1,0 +1,7 @@
+---
+- hosts: all
+  name: Provision Gitlab AMI
+  become: true
+
+  roles:
+  - gitlab

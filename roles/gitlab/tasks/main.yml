@@ -1,0 +1,48 @@
+---
+- name: Update Machine
+  apt:
+    name: '*'
+    state: latest
+
+- name: Install Dependency packages
+  apt:
+    name: "{{ dependency_pacakages }}"
+    state: present
+
+- name: Download gitlab Script
+  get_url:
+    url: "{{ gitlab_shell_url }}"
+    dest: "{{ download_dir }}/script.deb.sh"
+    mode: a+x
+    owner: "{{ gitlab_owner }}"
+
+- name: Execute script
+  shell: bash script.deb.sh
+  args:
+    chdir: "{{ download_dir }}"
+
+- name: Install gitlab-ce
+  apt:
+    name: gitlab-ce
+    state: present
+
+- name: Reconfigure gitlab
+  shell: gitlab-ctl reconfigure
+
+- name: Check gitlab status
+  shell: gitlab-ctl status
+  register: gitlabstatus
+
+- debug: var=gitlabstatus.stdout_lines
+
+- name: Download gitlab multi-runner
+  get_url:
+    url: "{{ gitlab_multirunner_url }}"
+    dest: "{{ download_dir }}/multi-runner-script.deb.sh"
+    mode: a+x
+    owner: "{{ gitlab_owner }}"
+
+- name: Install gitlab multi-runner
+  shell: bash multi-runner-script.deb.sh
+  args:
+    chdir: "{{ download_dir }}"

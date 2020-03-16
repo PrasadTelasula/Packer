@@ -1,0 +1,6 @@
+---
+dependency_pacakages:
+  - "curl"
+  - "openssh-server"
+  - "ca-certificates"
+  - "postfix"
