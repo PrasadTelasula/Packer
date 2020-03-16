@@ -9,16 +9,16 @@
     "run_volume_tags": {
       "Name": "gitlab-AMI-Volume"
     },
-    "source_ami": "ami-04125d804acca5692",
+    "source_ami": "ami-XXXXX",
     "tags": {
       "Name": "gitlab-AMI"
     },
     "type": "amazon-ebs",
     "security_group_ids": [
-        "sg-adc679c4"
+        "sg-XXXX"
     ],
     "ssh_username": "ubuntu",
-    "vpc_id": "vpc-2000df49"
+    "vpc_id": "vpc-XXXX"
   }],
   "provisioners": [{
     "type": "ansible",
